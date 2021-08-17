@@ -1,3 +1,4 @@
+##load_vector_using_rgdal
 ##[Sampling]=group
 ##Raster_to_be_sampled=raster
 ##Samples_per_strata=number 50

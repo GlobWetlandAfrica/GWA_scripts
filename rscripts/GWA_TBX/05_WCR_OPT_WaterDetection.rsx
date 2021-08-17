@@ -17,6 +17,7 @@
 # INPUT PARAMTERS --------------------------------------------------------
 
 # -> FOR QGIS Processing modules
+##load_vector_using_rgdal
 ##Optical Water Detection=name
 ##Water Cycle Regime=group
 ##Directory_containing_indices=folder

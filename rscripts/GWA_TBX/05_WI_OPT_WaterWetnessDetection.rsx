@@ -17,6 +17,7 @@
 # INPUT PARAMTERS
 
 # -> FOR QGIS Processing modules
+##load_vector_using_rgdal
 ##Water and Wetness Detection=name
 ##Wetland Inventory=group
 ##Directory_containing_indices=folder
