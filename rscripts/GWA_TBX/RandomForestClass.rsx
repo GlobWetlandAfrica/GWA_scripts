@@ -10,10 +10,6 @@
 ##Number_of_Cores_for_Processing= number 2
 ##Number_of_Trees= number 150
 
-# TODO: make sure that the training date crs matches the raster crs. project training data if necessary.
-# TODO: remove any NA values in training data. Give warning if some training data is outside extent.
-# TODO: if classification returns only NA - make warning that mask needs to have NA values defined.
-
 # Check for packages required, and if they are not installed, instal them.
 tryCatch(find.package("maptools"), error=function(e) install.packages("maptools", lib=file.path(.Library[1])))
 tryCatch(find.package("randomForest"), error=function(e) install.packages("randomForest", lib=file.path(.Library[1])))
@@ -53,7 +49,6 @@ poly_rst <- rasterize(Training_Data, img[[1]], field = Class_ID_Field)
 Training_Data_P <- rasterToPoints(poly_rst, spatial=TRUE)
 # give the point ID the 'Class_ID_Field' name
 names(Training_Data_P@data) <- Class_ID_Field
-# note for some strange reason, the crs of the spatial points did not match the imagery!
 # here the crs of the sample points is changed back to match the input imagery
 crs(Training_Data_P) <- crs(img[[1]])
 }
