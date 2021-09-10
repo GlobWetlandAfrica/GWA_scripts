@@ -98,7 +98,7 @@ def sdg661processrreportstatistics(instance, parameters, context, feedback, inpu
     report_files = glob.glob(os.path.join(os.path.dirname(report_file), filename_glob))
 
     # Parse the text files produced by r.report
-    values_as_km2 = []
+    values_as_km2 = {}
     regionIds = []
     periods = []
     region = None
@@ -111,13 +111,18 @@ def sdg661processrreportstatistics(instance, parameters, context, feedback, inpu
                     match = re.match("\|\s*(\d+)\|\s+\|\s*([\d\.,]+)\|", line)
                     if match:
                         processing_region = True
-                        region_stats = {landcover: "0.0" for landcover in
-                                                    [rc["label"] for rc in list(raster_classes.values())]}
-                        region_stats["yyyy"] = period
                         region = match.group(1)
-                        region_stats["regionId"] = region
-                        regionIds.append(region)
-                        periods.append(period)
+                        unique_id = f"{region}-{period}"
+                        if unique_id in values_as_km2.keys():
+                            region_stats = values_as_km2[unique_id]
+                        else:
+                            region_stats = {landcover: "0.0" for landcover in
+                                                        [rc["label"] for rc in list(raster_classes.values())]}
+                            region_stats["yyyy"] = period
+                            region_stats["regionId"] = region
+                            values_as_km2[unique_id] = region_stats
+                            regionIds.append(region)
+                            periods.append(period)
                 else:
                     match = re.match("\|\s*\|(\d+)\|(\s\.)+\s*\|\s*([\d\.,]+)\|", line)
                     if match:
@@ -130,10 +135,10 @@ def sdg661processrreportstatistics(instance, parameters, context, feedback, inpu
                         area = match.group(3).replace(",", "")
                         region_stats[lc_label] = area
                     elif re.match("\|-+\|?-+\|", line):
-                        values_as_km2.append(region_stats)
                         processing_region = False
     regionIds = set(regionIds)
     periods = set(periods)
+    values_as_km2 = list(values_as_km2.values())
 
     # Calculate percentage change of landcover classes from the reference period
     reference_stats = {}
