@@ -28,7 +28,7 @@ from qgis.core import (QgsProcessingException,
                        QgsPrintLayout,
                        QgsFillSymbol,
                        QgsRuleBasedRenderer,
-                       QgsLayoutItemHtml,
+                       QgsLayoutItemLabel,
                        QgsLegendRenderer,
                        QgsLegendStyle)
 
@@ -195,8 +195,8 @@ class ProduceSDGReportAlgorithm(QgsProcessingAlgorithm):
         raster_legend = atlas_legend.model().rootGroup().addLayer(raster_layer)
         QgsLegendRenderer.setNodeLegendStyle(raster_legend, QgsLegendStyle.Hidden)
         atlas_legend.updateLegend()
-        stats_table = composition.itemById("stats_table").multiFrame()
-        stats_table.setContentMode(QgsLayoutItemHtml.ManualHtml)
+        stats_table = composition.itemById("stats_table")
+        stats_table.setMode(QgsLayoutItemLabel.ModeHtml)
         title_label = composition.itemById("title_label")
         title_text = title_label.text()
         description_label = composition.itemById("description_label")
@@ -235,8 +235,7 @@ class ProduceSDGReportAlgorithm(QgsProcessingAlgorithm):
                                                 "props": [('text-align', 'right')]},
                                                {"selector": ", th",
                                                 "props": [('text-align', 'center')]}]).render()
-            stats_table.setHtml(html)
-            stats_table.loadHtml()
+            stats_table.setText(html)
             region_name = vector_layer.getFeature(i).attribute("aoi_name")
             title_label.setText(title_text.replace("%REGION_NAME%", region_name))
             description = description_text.replace("%REGION_NAME%", region_name)
