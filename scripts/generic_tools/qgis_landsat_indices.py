@@ -12,7 +12,7 @@ from processing.tools import dataobjects
     group_label=alg.tr("Landsat Tools"),
 )
 @alg.input(
-    type=alg.RASTER_LAYER,
+    type=alg.FILE,
     name="input",
     label="Input Reflectance Stack",
     optional=False,
@@ -21,11 +21,6 @@ from processing.tools import dataobjects
     type=alg.FOLDER_DEST,
     name="outputDirectory",
     label="Folder to save the stack of Indices"
-)
-@alg.input(
-    type=alg.RASTER_LAYER_DEST,
-    name="output",
-    label="Name for Index Stack",
 )
 def fmasklandsat(instance, parameters, context, feedback, inputs):
     """ landsat indicies """
