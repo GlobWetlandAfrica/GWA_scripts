@@ -8,12 +8,10 @@
 ##Area_Weighted_Error_Matrix=output table
 ##Unbiased_Area_Estimates=output table
 
-
-
 library(rpanel)
 library(tcltk2)
 
-r_path <- file.path(Sys.getenv("USERPROFILE"), ".qgis2", "processing", "rscripts", "GWA_TBX", fsep="\\")
+r_path <- file.path(Sys.getenv("USERPROFILE"), "AppData", "Roaming", "QGIS", "QGIS3", "profiles", "default", "processing", "rscripts", "GWA_TBX", fsep="\\")
 fun_path <- paste(r_path, '\\aa_card.R', sep='')
 source(fun_path)
 
@@ -47,7 +45,6 @@ return(res_table)
 
 }
 
-
 # get the frequency of pixels in the raster:
 
 panel <- rp.control(title = "Progess Message. . .", size = c(500, 50))
@@ -57,7 +54,6 @@ frq <- table(freq_t)
 rp.control.dispose(panel)
 
 class_ints <- names(frq)
-
 
 mess_text <- paste0('IMPORTANT: "No Data" values must not be included below.\n\nNumber of classes detected = ', length(class_ints), '\nWith raster class values of =', (paste(class_ints, collapse=", ")),
 '\n\nIs this as you expect?\n\nIf this is correct, choose Yes to continue.\nIf there are unwanted classes or No Data values included above, choose No')
@@ -73,10 +69,8 @@ tk_messageBox(type = 'ok', message = unwant_text, caption = "Please reclassify r
 stop("Please reclassify raster.")
 }
 
-
 # get the class weights
 prp <- frq / sum(frq)
-
 
 # first check that the raster units are in meters
 coord <- as.character(crs(Classified_Map))
@@ -93,7 +87,6 @@ tk_messageBox(type = 'ok', message = unit_text, caption = "Change raster units t
 stop("Please change raster units to meters.")
 }
 
-
 # get pixel resolution
 reso <- res(Classified_Map)
 
@@ -103,9 +96,7 @@ tarea <- sum(frq) * (reso[1] * reso[2]) / 10000
 # get class area proportions
 area_pro <- tarea * prp
 
-
 # extract map values and combine with validation values and run accuracy assessment:
-
 # get map values
 mapv <- extract(Classified_Map, Validation_Samples)
 
@@ -118,10 +109,8 @@ dt <- as.data.frame(cbind(valv, mapv))
 # run accuracy assessement
 acc_ass <- aa_card(dt, w=prp, confusion_matrix = FALSE)
 
-
 # get unbiased area estimates:
 area_est <- acc_ass$area
-
 
 # check if pixel area classes matches the unbiased area class order
 order_check <- identical(as.numeric(names(area_pro)), area_est$class)
@@ -140,7 +129,6 @@ arest$units <- 'ha'
 
 Unbiased_Area_Estimates <- arest
 
-
 # get unweighted error matrix and stats:
 
 err_mat <- acc_ass$cm
@@ -154,7 +142,6 @@ rownames(err_stats) <- row_nms
 colnames(err_stats) <- c(col_nms, '', 'Col. totals', 'Row totals', 'Prod. Acc', 'Users Acc', 'Overall Acc')
 
 Unweighted_Error_Matrix <- err_stats
-
 
 # get weighted error matrix and stats:
 
