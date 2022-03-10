@@ -13,7 +13,7 @@ rp.messagebox('You must enter the name of the Shapefile Attribute Field to be us
 }
 
 
-Rpath <- file.path(Sys.getenv("USERPROFILE"), ".qgis2", "processing", "rscripts", "GWA_TBX", fsep="\\")
+Rpath <- file.path(Sys.getenv("USERPROFILE"), "AppData", "Roaming", "QGIS", "QGIS3", "profiles", "default", "processing", "rscripts", "GWA_TBX", fsep="\\")
 
 fun_path <-paste(Rpath, '\\vecToKml.R', sep='')
 
