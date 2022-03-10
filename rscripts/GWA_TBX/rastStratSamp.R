@@ -11,7 +11,7 @@
   
   library(raster)
   
-  RastStratSamp<- function(Raster_to_be_sampled, Samples_per_strata, Attribute_name, Optional_Attribute_name_1,
+  RastStratSamp <- function(Raster_to_be_sampled, Samples_per_strata, Attribute_name, Optional_Attribute_name_1,
                            Optional_Attribute_name_2){
     
     Raster_to_be_sampled<-Raster_to_be_sampled[[1]]
@@ -25,7 +25,6 @@
     
     # get the number of attributes to be added
     num_atts<-length(att_nums)
-    
     
     # take a random sample for the raster
     smp<-sampleStratified(Raster_to_be_sampled, size=Samples_per_strata, na.rm=T, sp=T, exp=50)
@@ -56,17 +55,13 @@
     
     # join the sample number and the blank attributes
     att<-as.data.frame(cbind(num, attx))
-    #att<-as.data.frame(cbind(map_id, num, attx)) # include map_id or not - not independent if can be seen
     
     # add the attirbute names
     nms<-c('number', atts[att_nums])
-    #nms<-c('map_id', 'number', atts[att_nums]) # include map_id or not - not independent if can be seen
     names(att)<-nms
     
     # combine the attributes with the sample
     smp@data<-data.frame(att)
     
     return(smp)
-    
   }
-  
