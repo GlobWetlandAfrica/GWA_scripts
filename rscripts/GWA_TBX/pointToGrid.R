@@ -30,7 +30,6 @@
   }
   
   # function same as above, but makes a 3 x 3 grid instead of a single pixel square
-  
   PixToPoly_3x3<-function (cell, x) {
     
     # get the xy position
@@ -70,7 +69,6 @@
     # now pick the coordinates for the grid
     cp<-as.matrix(grd[c(6,10,11,7,6,2,3,7,8,12,11,15,14,10,9,5,6,5,1,2,3,4,8,12,16,15,14,13,9,5,6),])
     
-    
     # this function converts the grid into a spatial polygon
     matrix_to_poly<-function(coord_matrix){
       
@@ -80,7 +78,6 @@
       # convert to spatila polygon
       cmpsp<-SpatialPolygons(list(cmps))
       
-      
     }
     
     eg<-matrix_to_poly(cp)
@@ -89,7 +86,6 @@
     return(eg)
   }
   
-  
   PointToGrid<-function(inRst, smp, g3x3=TRUE){
     
     # get attribute data
@@ -97,7 +93,6 @@
     
     # get the cell number raster corresponding to each points
     clnum<-as.matrix(cellFromXY(inRst, smp))
-    
     
     if (g3x3==FALSE){
       
@@ -111,7 +106,6 @@
       
     }
     
-    
     # merge the list of grid polygons
     pol<-do.call(bind, pol_lst)
     
@@ -119,6 +113,5 @@
     pol_spd<-SpatialPolygonsDataFrame(pol, data=att)
     
     return(pol_spd)
-    
   }
   
