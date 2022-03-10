@@ -9,9 +9,9 @@
 
 ##Sample_Points= output vector
 
-Rpath <- file.path(Sys.getenv("USERPROFILE"), ".qgis2", "processing", "rscripts", "GWA_TBX", fsep="\\")
+Rpath <- file.path(Sys.getenv("USERPROFILE"), "AppData", "Roaming", "QGIS", "QGIS3", "profiles", "default", "processing", "rscripts", "GWA_TBX", fsep="\\")
 
-fun_path <-paste(Rpath, '\\rastStratSamp.R', sep='')
+fun_path <- paste(Rpath, '\\rastStratSamp.R', sep='')
 
 source(fun_path)
 
