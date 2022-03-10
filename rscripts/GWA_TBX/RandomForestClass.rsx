@@ -10,14 +10,6 @@
 ##Number_of_Cores_for_Processing= number 2
 ##Number_of_Trees= number 150
 
-# Check for packages required, and if they are not installed, instal them.
-tryCatch(find.package("maptools"), error=function(e) install.packages("maptools", lib=file.path(.Library[1])))
-tryCatch(find.package("randomForest"), error=function(e) install.packages("randomForest", lib=file.path(.Library[1])))
-tryCatch(find.package("snow"), error=function(e) install.packages("snow", lib=file.path(.Library[1])))
-tryCatch(find.package("snowfall"), error=function(e) install.packages("snowfall", lib=file.path(.Library[1])))
-tryCatch(find.package("rpanel"), error=function(e) install.packages("tcltk", lib=file.path(.Library[1])))
-
-
 # load all libraries used
 library(maptools)
 library(randomForest)
@@ -88,7 +80,6 @@ beginCluster(Number_of_Cores_for_Processing)
 map_rf <- clusterR(img, raster::predict, args = list(model = RandomForestModel, na.rm = TRUE))
 endCluster()
 gc()
-
 
 # mask the resulting classification
 if (!is.null(Mask_Raster)){
