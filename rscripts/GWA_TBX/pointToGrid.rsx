@@ -6,9 +6,6 @@
 
 ##Sample_Outline=output vector
 
-# Check for packages required, and if they are not installed, instal them.
-tryCatch(find.package("rpanel"), error=function(e) install.packages("rpanel", lib=file.path(.Library[1])))
-
 library('rpanel')
 
 Rpath <- file.path(Sys.getenv("USERPROFILE"), "AppData", "Roaming", "QGIS", "QGIS3", "profiles", "default", "processing", "rscripts", "GWA_TBX", fsep="\\")
