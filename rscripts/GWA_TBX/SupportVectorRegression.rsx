@@ -12,15 +12,6 @@
 
 ##Output_Raster= output raster
 
-# TODO: make sure that the training date crs matches the raster crs. project training data if necessary.
-
-# Check for packages required, and if they are not installed, instal them.
-tryCatch(find.package("maptools"), error=function(e) install.packages("maptools", lib=file.path(.Library[1])))
-tryCatch(find.package("e1071"), error=function(e) install.packages("e1071", lib=file.path(.Library[1])))
-tryCatch(find.package("snow"), error=function(e) install.packages("snow", lib=file.path(.Library[1])))
-tryCatch(find.package("snowfall"), error=function(e) install.packages("snowfall", lib=file.path(.Library[1])))
-tryCatch(find.package("rpanel"), error=function(e) install.packages("tcltk", lib=file.path(.Library[1])))
-
 # load all libraries used
 library(maptools)
 library(e1071)
@@ -68,7 +59,6 @@ data_frame <- sfSapply(imgl, extract, y = Training_Data)
 sfStop()
 data_frame <- data.frame(data_frame)
 names(data_frame) <- names(img)
-
 
 # add the classification ID to the model training data
 if (class(Training_Data)[1] == 'SpatialPolygonsDataFrame'){
