@@ -1,14 +1,10 @@
 ##load_vector_using_rgdal
 ##[Accuracy Assessment]=group
 
-
 ##Continuous_Variable_Raster=raster
 ##Validation_Samples=vector
 ##Validation_Label_Field= Field Validation_Samples
 ##Error_Statistics=output table
-
-# Check for packages required, and if they are not installed, instal them.
-tryCatch(find.package("Metrics"), error=function(e) install.packages("Metrics", lib=file.path(.Library[1])))
 
 library(Metrics)
 
@@ -43,7 +39,6 @@ data_frame <- extract(img, y = Validation_Samples)
 }
 data_frame <- data.frame(data_frame)
 names(data_frame) <- 'image'
-
 
 # add the classification ID to the model training data
 if (class(Validation_Samples)[1] == 'SpatialPolygonsDataFrame'){
