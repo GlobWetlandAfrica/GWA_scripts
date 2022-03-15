@@ -14,7 +14,7 @@ from qgis.processing import alg
     group="gt",
     group_label=alg.tr("Generic Tools")
 )
-@alg.input(type=alg.FILE, name="infile", label="Landsat tar.gz file", behavior=0, optional=True, extension='gz')
+@alg.input(type=alg.FILE, name="infile", label="Landsat tar or tar.gz file", behavior=0, optional=False, fileFilter='*.gz;*.tar')
 @alg.input(type=alg.FOLDER_DEST, name='processing_path', label='processing path')
 @alg.output(type=alg.FOLDER, name='out_folder', label='out folder')
 
