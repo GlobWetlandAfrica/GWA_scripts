@@ -12,7 +12,7 @@ from processing.tools import dataobjects
     group_label=alg.tr("Landsat Tools"),
 )
 @alg.input(
-    type=alg.FILE,
+    type=alg.RASTER_LAYER,
     name="input",
     label="Input Reflectance Stack",
     optional=False,
@@ -85,6 +85,7 @@ def fmasklandsat(instance, parameters, context, feedback, inputs):
         return stkPath
 
     feedback.pushConsoleInfo('Starting index calculation...')
-    out_file = landsat_indices(instance.parameterAsString(parameters, 'input', context), instance.parameterAsString(parameters, 'outputDirectory', context))
+    out_file = landsat_indices(instance.parameterAsRasterLayer(parameters, 'input', context).source(),
+                               instance.parameterAsString(parameters, 'outputDirectory', context))
     dataobjects.load(out_file, isRaster=True)
     feedback.pushConsoleInfo('Finished writing to disk...')
