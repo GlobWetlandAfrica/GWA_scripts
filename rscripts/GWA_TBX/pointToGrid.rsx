@@ -6,8 +6,6 @@
 
 ##Sample_Outline=output vector
 
-library('rpanel')
-
 Rpath <- file.path(Sys.getenv("USERPROFILE"), "AppData", "Roaming", "QGIS", "QGIS3", "profiles", "default", "processing", "rscripts", "GWA_TBX", fsep="\\")
 
 fun_path <-paste(Rpath, '\\pointToGrid.R', sep='')
