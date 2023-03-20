@@ -51,7 +51,11 @@ aa_card <- function(data, w=NULL, area=NULL, confusion_matrix=T) {
     
   } else n <- data
   
-  
+  # rearrange area proportions to match error matrix
+  w_names <- names(w)
+  n_names <- names(n[1,])
+  order_idx <- match(n_names, w_names)
+  w <- w[order_idx]
   
   class <- colnames(n)
   if (length(class)==0) class <- 1:nrow(n)
